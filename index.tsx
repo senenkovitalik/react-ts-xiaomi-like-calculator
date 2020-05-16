@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import "./style.css";
 import {Button} from './components/button/Button.tsx';
 import {ButtonCircle} from './components/buttonCircle/ButtonCircle.tsx';
+import Divider from './components/divider/Divider.tsx';
 
 function App() {
   const [userInput, setUserInput] = useState(null);
@@ -19,9 +20,7 @@ function App() {
               <div className="result__current">= 2323</div>
             </div>
           </div>
-          <div className="divider">
-            <div />
-          </div>
+          <Divider />
           <div className="numpad">
             <div className="numpad__row">
               <Button value="C" handler={pressButton} />

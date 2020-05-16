@@ -1,0 +1,10 @@
+.divider {
+  height: 2px;
+  padding: 0 15px;
+}
+
+.divider div {
+  height: 1px;
+  width: 100;
+  background-color: grey;
+}

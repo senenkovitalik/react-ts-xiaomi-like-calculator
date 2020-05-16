@@ -38,17 +38,6 @@
   height: 100%;
 }
 
-.divider {
-  height: 2px;
-  padding: 0 15px;
-}
-
-.divider div {
-  height: 1px;
-  width: 100;
-  background-color: grey;
-}
-
 .result {
   display: flex;
   flex-direction: column;
