@@ -1,7 +1,14 @@
-import React from "react";
+import React, {FunctionComponent} from "react";
 import "./Button.css";
 
-export function Button({ children, value, handler, isOperation = false, hovered = true }) {
+type ButtonProps = {
+  value: string;
+  handler: Function;
+  isOperation?: boolean;
+  hovered?: boolean;
+};
+
+export const Button: FunctionComponent<ButtonProps> = ({ children, value, handler, isOperation = false, hovered = true }) => {
   const classes = ["numpad__button"];
 
   if (isOperation) {

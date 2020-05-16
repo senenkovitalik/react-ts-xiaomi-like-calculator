@@ -1,9 +1,9 @@
 import React, { Component, useState } from "react";
 import { render } from "react-dom";
 import "./style.css";
-import {Button} from './components/button/Button.tsx';
-import {ButtonCircle} from './components/buttonCircle/ButtonCircle.tsx';
-import Divider from './components/divider/Divider.tsx';
+import {Button} from './components/button/Button';
+import {ButtonCircle} from './components/buttonCircle/ButtonCircle';
+import Divider from './components/divider/Divider';
 
 function App() {
   const [userInput, setUserInput] = useState(null);
