@@ -24,42 +24,31 @@ function App() {
           </div>
           <div className="numpad">
             <div className="numpad__row">
-              <div className="numpad__col numpad__col_orange">C</div>
-              <div className="numpad__col numpad__col_orange">{"<-"}</div>
-              <div className="numpad__col numpad__col_orange">%</div>
-              <div className="numpad__col numpad__col_orange">/</div>
+              <Button value="C" handler={pressButton} />
+              <Button value="<-" handler={pressButton} />
+              <Button value="%" handler={pressButton} />
+              <Button value="/" handler={pressButton} isOperation />
             </div>
 
             <div className="numpad__row">
-              <div className="numpad__col">7</div>
-              <div className="numpad__col">8</div>
-              <div className="numpad__col">9</div>
-              <div className="numpad__col numpad__col_orange">X</div>
+              <Button value="7" handler={pressButton} />
+              <Button value="8" handler={pressButton} />
+              <Button value="9" handler={pressButton} />
+              <Button value="X" handler={pressButton} isOperation />
             </div>
 
             <div className="numpad__row">
-              <div className="numpad__col">4</div>
-              <div className="numpad__col">5</div>
-              <div className="numpad__col">6</div>
-              <div className="numpad__col numpad__col_orange">-</div>
+              <Button value="4" handler={pressButton} />
+              <Button value="5" handler={pressButton} />
+              <Button value="6" handler={pressButton} />
+              <Button value="-" handler={pressButton} isOperation />
             </div>
 
             <div className="numpad__row">
-              <div className="numpad__col" onClick={e => pressButton(1)}>
-                1
-              </div>
-              <div className="numpad__col" onClick={e => pressButton(2)}>
-                2
-              </div>
-              <div className="numpad__col" onClick={e => pressButton(3)}>
-                3
-              </div>
-              <div
-                className="numpad__col numpad__col_orange"
-                onClick={e => pressButton("+")}
-              >
-                +
-              </div>
+              <Button value="1" handler={pressButton} />
+              <Button value="2" handler={pressButton} />
+              <Button value="3" handler={pressButton} />
+              <Button value="+" handler={pressButton} isOperation />
             </div>
 
             <div className="numpad__row">
