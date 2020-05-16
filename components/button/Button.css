@@ -1,0 +1,15 @@
+.numpad__button {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.numpad__button_hovered:hover {
+  background-color: lightgray;
+}
+
+.numpad__button_orange {
+  color: orangered;
+}

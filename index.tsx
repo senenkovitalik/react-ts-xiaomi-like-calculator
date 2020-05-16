@@ -1,6 +1,8 @@
 import React, { Component, useState } from "react";
 import { render } from "react-dom";
 import "./style.css";
+import {Button} from './components/button/Button.tsx';
+import {ButtonCircle} from './components/buttonCircle/ButtonCircle.tsx';
 
 function App() {
   const [userInput, setUserInput] = useState(null);
@@ -61,12 +63,12 @@ function App() {
             </div>
 
             <div className="numpad__row">
-              <div className="numpad__col" />
-              <div className="numpad__col">0</div>
-              <div className="numpad__col numpad__col_orange">,</div>
-              <div className="numpad__col">
-                <div className="button-circle">=</div>
-              </div>
+              <div style={{width: "25%"}}>{''}</div>
+              <Button value="0" handler={pressButton} />
+              <Button value="," handler={pressButton} />
+              <Button value="=" handler={pressButton} hovered={false}>
+                <ButtonCircle>=</ButtonCircle>
+              </Button>
             </div>
           </div>
         </div>
