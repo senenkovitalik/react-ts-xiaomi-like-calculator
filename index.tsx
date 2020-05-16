@@ -1,12 +1,87 @@
 import React, { Component, useState } from "react";
 import { render } from "react-dom";
 import "./style.css";
-import {Button} from './components/button/Button';
-import {ButtonCircle} from './components/buttonCircle/ButtonCircle';
-import Divider from './components/divider/Divider';
+import { Button } from "./components/button/Button";
+import { ButtonCircle } from "./components/buttonCircle/ButtonCircle";
+import Divider from "./components/divider/Divider";
 
 function App() {
-  const [userInput, setUserInput] = useState(null);
+  const [userInput, setUserInput] = useState("");
+
+  const buttonsMap = {
+    0: {
+      title: "0",
+      value: 0
+    },
+    1: {
+      title: "1",
+      value: 1
+    },
+    2: {
+      title: "2",
+      value: 2
+    },
+    3: {
+      title: "3",
+      value: 3
+    },
+    4: {
+      title: "4",
+      value: 4
+    },
+    5: {
+      title: "5",
+      value: 5
+    },
+    6: {
+      title: "6",
+      value: 6
+    },
+    7: {
+      title: "7",
+      value: 7
+    },
+    8: {
+      title: "8",
+      value: 8
+    },
+    9: {
+      title: "9",
+      value: 9
+    },
+    10: {
+      title: "C",
+      value: "CLEAR_ALL"
+    },
+    11: {
+      title: "<-",
+      value: "BACKSPACE"
+    },
+    12: {
+      title: "%",
+      value: "PERCENT"
+    },
+    13: {
+      title: "/",
+      value: "DIVISION"
+    },
+    14: {
+      title: "X",
+      value: "MULTIPLICATION"
+    },
+    15: {
+      title: "-",
+      value: "MINUS"
+    },
+    16: {
+      title: "+",
+      value: "PLUS"
+    },
+    17: {
+      title: ",",
+      value: "PERIOD"
+    }
+  };
 
   return (
     <div className="phone">
@@ -20,12 +95,14 @@ function App() {
               <div className="result__current">= 2323</div>
             </div>
           </div>
+
           <Divider />
+
           <div className="numpad">
             <div className="numpad__row">
-              <Button value="C" handler={pressButton} />
-              <Button value="<-" handler={pressButton} />
-              <Button value="%" handler={pressButton} />
+              <Button value="C" handler={pressButton} isOperation />
+              <Button value="<-" handler={pressButton} isOperation />
+              <Button value="%" handler={pressButton} isOperation />
               <Button value="/" handler={pressButton} isOperation />
             </div>
 
@@ -51,9 +128,9 @@ function App() {
             </div>
 
             <div className="numpad__row">
-              <div style={{width: "25%"}}>{''}</div>
+              <div style={{ width: "25%" }}>{""}</div>
               <Button value="0" handler={pressButton} />
-              <Button value="," handler={pressButton} />
+              <Button value="," handler={pressButton} isOperation />
               <Button value="=" handler={pressButton} hovered={false}>
                 <ButtonCircle>=</ButtonCircle>
               </Button>
@@ -64,8 +141,35 @@ function App() {
     </div>
   );
 
-  function pressButton(val: number | string) {
-    setUserInput(val);
+  function pressButton(val: string): void {
+    switch (val) {
+      case "C":
+        setUserInput("");
+        break;
+      case "<-":
+        setUserInput(userInput.slice(0, userInput.length - 1));
+        break;
+      case "%":
+        break;
+      case "=":
+        break;
+      case "/":
+      case "X":
+      case "-":
+      case "+":
+      case ",":
+      default:
+        if (checkIsInputAllowed(val)) {
+          setUserInput(userInput.concat(val));
+        }
+    }
+  }
+
+  function checkIsInputAllowed(currentVal: string): boolean {
+    const prevVal = userInput.charAt(userInput.length - 1);
+    const isPrevValSign = isNaN(parseInt(prevVal, 10));
+    const isCurrentValSign = isNaN(parseInt(currentVal, 10));
+    return !(isPrevValSign && isCurrentValSign);
   }
 }
 
