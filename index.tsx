@@ -4,8 +4,10 @@ import "./style.css";
 import { Button } from "./components/button/Button";
 import { ButtonCircle } from "./components/buttonCircle/ButtonCircle";
 import Divider from "./components/divider/Divider";
+import math from "mathjs";
 
 function App() {
+  const [result, setResult] = useState(0);
   const [userInput, setUserInput] = useState("");
 
   const buttonsMap = {
@@ -92,7 +94,7 @@ function App() {
             <div className="result__history" />
             <div className="result__container">
               <div className="result__input">{userInput}</div>
-              <div className="result__current">= 2323</div>
+              <div className="result__current">= {result}</div>
             </div>
           </div>
 
@@ -131,7 +133,7 @@ function App() {
               <div style={{ width: "25%" }}>{""}</div>
               <Button value="0" handler={pressButton} />
               <Button value="," handler={pressButton} isOperation />
-              <Button value="=" handler={pressButton} hovered={false}>
+              <Button value="=" handler={evaluate} hovered={false}>
                 <ButtonCircle>=</ButtonCircle>
               </Button>
             </div>
@@ -163,6 +165,8 @@ function App() {
           setUserInput(userInput.concat(val));
         }
     }
+
+    evaluate();
   }
 
   function checkIsInputAllowed(currentVal: string): boolean {
@@ -170,6 +174,20 @@ function App() {
     const isPrevValSign = isNaN(parseInt(prevVal, 10));
     const isCurrentValSign = isNaN(parseInt(currentVal, 10));
     return !(isPrevValSign && isCurrentValSign);
+  }
+
+  function evaluate() {
+    const lastChar = userInput.charAt(userInput.length - 1);
+    const isSign = isNaN(parseInt(lastChar, 10));
+    let res;
+
+    if (isSign) {
+      res = math.evaluate(userInput.slice(0, userInput.length - 1));
+    } else {
+      res = math.evaluate(userInput);
+    }
+
+    setResult(res);
   }
 }
 
