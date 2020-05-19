@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { render } from "react-dom";
 import "./style.css";
 import { Button } from "./components/button/Button";
@@ -12,6 +12,7 @@ class History {
 }
 
 function App() {
+  const [clock, setClock] = useState("");
   const [result, setResult] = useState(null);
   const [userInput, setUserInput] = useState("");
   const [resultMuted, muteResult] = useState(false);
@@ -20,10 +21,20 @@ function App() {
     { expr: "12 + 33", res: 45 }
   ]);
 
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      const d = new Date();
+      const time = d.toLocaleTimeString();
+
+      setClock(time);
+    }, 1000);
+    return () => clearInterval(timerId);
+  });
+
   return (
     <div className="phone">
       <div className="phone__container">
-        <div className="status-bar">00:00</div>
+        <div className="status-bar">{clock}</div>
 
         <div className="calculator">
           <div className="result">
