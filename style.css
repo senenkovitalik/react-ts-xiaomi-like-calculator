@@ -45,6 +45,11 @@
   width: 100%;
   word-wrap: break-word;
   height: 43%;
+  font-size: x-large;
+}
+
+.muted {
+  font-size: x-small;
 }
 
 .result__history {

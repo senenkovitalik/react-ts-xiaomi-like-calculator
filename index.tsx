@@ -7,8 +7,9 @@ import Divider from "./components/divider/Divider";
 import math from "mathjs";
 
 function App() {
-  const [result, setResult] = useState(0);
+  const [result, setResult] = useState(null);
   const [userInput, setUserInput] = useState("");
+  const [resultMuted, muteResult] = useState(false);
 
   return (
     <div className="phone">
@@ -18,8 +19,12 @@ function App() {
           <div className="result">
             <div className="result__history" />
             <div className="result__container">
-              <div className="result__input">{userInput}</div>
-              <div className="result__current">= {result}</div>
+              <div className={`result__input ${resultMuted ? "muted" : ""}`}>
+                {userInput}
+              </div>
+              <div className={`result__current ${resultMuted ? "" : "muted"}`}>
+                {result ? "=" : null} {result}
+              </div>
             </div>
           </div>
 
@@ -37,7 +42,7 @@ function App() {
               <Button value="7" handler={pressButton} />
               <Button value="8" handler={pressButton} />
               <Button value="9" handler={pressButton} />
-              <Button value="X" handler={pressButton} isOperation />
+              <Button value="*" handler={pressButton} isOperation />
             </div>
 
             <div className="numpad__row">
@@ -58,7 +63,7 @@ function App() {
               <div style={{ width: "25%" }}>{""}</div>
               <Button value="0" handler={pressButton} />
               <Button value="," handler={pressButton} isOperation />
-              <Button value="=" handler={evaluate} hovered={false}>
+              <Button value="=" handler={pressButton} hovered={false}>
                 <ButtonCircle>=</ButtonCircle>
               </Button>
             </div>
@@ -72,26 +77,28 @@ function App() {
     switch (val) {
       case "C":
         setUserInput("");
+        setResult(null);
         break;
       case "<-":
         setUserInput(userInput.slice(0, userInput.length - 1));
+        evaluate(userInput.slice(0, userInput.length - 1));
         break;
       case "%":
         break;
       case "=":
         break;
       case "/":
-      case "X":
+      case "*":
       case "-":
       case "+":
-      case ",":
       default:
         if (checkIsInputAllowed(val)) {
           setUserInput(userInput.concat(val));
+          evaluate(userInput.concat(val));
         }
     }
 
-    evaluate();
+    muteResult(val === "=");
   }
 
   function checkIsInputAllowed(currentVal: string): boolean {
@@ -101,16 +108,11 @@ function App() {
     return !(isPrevValSign && isCurrentValSign);
   }
 
-  function evaluate() {
-    const lastChar = userInput.charAt(userInput.length - 1);
+  function evaluate(expression: string) {
+    const lastChar = expression.charAt(expression.length - 1);
     const isSign = isNaN(parseInt(lastChar, 10));
-    let res;
-
-    if (isSign) {
-      res = math.evaluate(userInput.slice(0, userInput.length - 1));
-    } else {
-      res = math.evaluate(userInput);
-    }
+    const toEval = isSign ? expression.slice(0, userInput.length) : expression;
+    const res = math.evaluate(toEval);
 
     setResult(res);
   }
