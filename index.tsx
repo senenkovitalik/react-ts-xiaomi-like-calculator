@@ -111,7 +111,7 @@ function App() {
   function evaluate(expression: string) {
     const lastChar = expression.charAt(expression.length - 1);
     const isSign = isNaN(parseInt(lastChar, 10));
-    const toEval = isSign ? expression.slice(0, userInput.length) : expression;
+    const toEval = isSign ? expression.slice(0, expression.length) : expression;
     const res = math.evaluate(toEval);
 
     setResult(res);
