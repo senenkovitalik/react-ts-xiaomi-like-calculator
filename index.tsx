@@ -16,10 +16,7 @@ function App() {
   const [result, setResult] = useState(null);
   const [userInput, setUserInput] = useState("");
   const [resultMuted, muteResult] = useState(false);
-  const [history, updateHistory] = useState<History[]>([
-    { expr: "2 + 3", res: 5 },
-    { expr: "12 + 33", res: 45 }
-  ]);
+  const [history, updateHistory] = useState<History[]>([]);
 
   return (
     <div className="phone">
