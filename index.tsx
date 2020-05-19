@@ -6,19 +6,37 @@ import { ButtonCircle } from "./components/buttonCircle/ButtonCircle";
 import Divider from "./components/divider/Divider";
 import math from "mathjs";
 
+class History {
+  expr: string;
+  res: number;
+}
+
 function App() {
   const [result, setResult] = useState(null);
   const [userInput, setUserInput] = useState("");
   const [resultMuted, muteResult] = useState(false);
-  const [willAddToHistory, addToHistory] = useState(false);
+  const [history, updateHistory] = useState<History[]>([
+    { expr: "2 + 3", res: 5 },
+    { expr: "12 + 33", res: 45 }
+  ]);
 
   return (
     <div className="phone">
       <div className="phone__container">
         <div className="status-bar">00:00</div>
+
         <div className="calculator">
           <div className="result">
-            <div className="result__history" />
+            <div className="result__history">
+              {history.map(({ expr, res }) => (
+                <React.Fragment>
+                  <div className={`result__input`}>{expr}</div>
+                  <div className={`result__current`}>= {res}</div>
+                  <br />
+                </React.Fragment>
+              ))}
+            </div>
+
             <div className="result__container">
               <div className={`result__input ${resultMuted ? "muted" : ""}`}>
                 {userInput}
@@ -75,18 +93,28 @@ function App() {
   );
 
   function pressButton(val: string): void {
+    let expr;
+
     switch (val) {
       case "C":
         setUserInput("");
         setResult(null);
         break;
       case "<-":
-        setUserInput(userInput.slice(0, userInput.length - 1));
-        evaluate(userInput.slice(0, userInput.length - 1));
+        expr = userInput.slice(0, userInput.length - 1);
+        setUserInput(expr);
+        evaluate(expr);
         break;
       case "%":
-        break;
-      case "=":
+        const regex = /\d+$/g;
+        const matches = userInput.match(regex);
+        if (matches.length) {
+          const transformedValue = parseInt(matches[0], 10) / 100;
+
+          expr = userInput.replace(regex, transformedValue.toString());
+          setUserInput(expr);
+          evaluate(expr);
+        }
         break;
       case "/":
       case "*":
@@ -94,13 +122,13 @@ function App() {
       case "+":
       default:
         if (checkIsInputAllowed(val)) {
-          setUserInput(userInput.concat(val));
-          evaluate(userInput.concat(val));
+          expr = userInput.concat(val);
+          setUserInput(expr);
+          evaluate(expr);
         }
     }
 
     muteResult(val === "=");
-    addToHistory(val === "=");
   }
 
   function checkIsInputAllowed(currentVal: string): boolean {
@@ -113,7 +141,9 @@ function App() {
   function evaluate(expression: string) {
     const lastChar = expression.charAt(expression.length - 1);
     const isSign = isNaN(parseInt(lastChar, 10));
-    const toEval = isSign ? expression.slice(0, expression.length - 1) : expression;
+    const toEval = isSign
+      ? expression.slice(0, expression.length - 1)
+      : expression;
     const res = math.evaluate(toEval);
 
     setResult(res);
