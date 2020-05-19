@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import { render } from "react-dom";
 import "./style.css";
+import StatusBar from "./components/status-bar/StatusBar";
 import { Button } from "./components/button/Button";
 import { ButtonCircle } from "./components/buttonCircle/ButtonCircle";
 import Divider from "./components/divider/Divider";
@@ -12,7 +13,6 @@ class History {
 }
 
 function App() {
-  const [clock, setClock] = useState("");
   const [result, setResult] = useState(null);
   const [userInput, setUserInput] = useState("");
   const [resultMuted, muteResult] = useState(false);
@@ -21,20 +21,10 @@ function App() {
     { expr: "12 + 33", res: 45 }
   ]);
 
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      const d = new Date();
-      const time = d.toLocaleTimeString();
-
-      setClock(time);
-    }, 1000);
-    return () => clearInterval(timerId);
-  });
-
   return (
     <div className="phone">
       <div className="phone__container">
-        <div className="status-bar">{clock}</div>
+        <StatusBar />
 
         <div className="calculator">
           <div className="result">

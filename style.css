@@ -26,12 +26,6 @@
   overflow: hidden;
 }
 
-.status-bar {
-  height: 18px;
-  padding: 6px 10px;
-  font-size: 12px;
-}
-
 .calculator {
   position: relative;
   height: 100%;
