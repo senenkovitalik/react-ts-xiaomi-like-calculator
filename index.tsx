@@ -10,6 +10,7 @@ function App() {
   const [result, setResult] = useState(null);
   const [userInput, setUserInput] = useState("");
   const [resultMuted, muteResult] = useState(false);
+  const [willAddToHistory, addToHistory] = useState(false);
 
   return (
     <div className="phone">
@@ -99,6 +100,7 @@ function App() {
     }
 
     muteResult(val === "=");
+    addToHistory(val === "=");
   }
 
   function checkIsInputAllowed(currentVal: string): boolean {
@@ -111,7 +113,7 @@ function App() {
   function evaluate(expression: string) {
     const lastChar = expression.charAt(expression.length - 1);
     const isSign = isNaN(parseInt(lastChar, 10));
-    const toEval = isSign ? expression.slice(0, expression.length) : expression;
+    const toEval = isSign ? expression.slice(0, expression.length - 1) : expression;
     const res = math.evaluate(toEval);
 
     setResult(res);
