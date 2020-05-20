@@ -6,11 +6,11 @@
   width: 100%;
   word-wrap: break-word;
   height: 43%;
-  font-size: x-large;
+  font-size: 2rem;
 }
 
 .muted {
-  font-size: x-small;
+  font-size: 1rem;
 }
 
 .result__history {
@@ -18,7 +18,7 @@
   height: 100%;
   text-align: right;
   overflow: hidden;
-  font-size: x-small;
+  font-size: 1rem;
 }
 
 .result__container {
