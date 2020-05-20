@@ -41,7 +41,7 @@ export default function numpad<Props>({ buttonHandler }) {
       <div className="numpad__row">
         <div style={{ width: "25%" }}>{""}</div>
         <Button value="0" handler={buttonHandler} />
-        <Button value="," handler={buttonHandler} isOperation />
+        <Button value="." handler={buttonHandler} isOperation />
         <Button value="=" handler={buttonHandler} hovered={false}>
           <ButtonCircle>=</ButtonCircle>
         </Button>
