@@ -16,6 +16,7 @@ function App() {
   const [result, setResult] = useState(null);
   const [userInput, setUserInput] = useState("");
   const [resultMuted, muteResult] = useState(false);
+  const [willHistoryUpdate, setHistoryUpdateState] = useState(false);
   const [history, updateHistory] = useState<History[]>([]);
 
   return (
@@ -40,42 +41,71 @@ function App() {
   );
 
   function pressButton(val: string): void {
+    let isHistoryUpdated = false;
     let expr;
+
+    if (willHistoryUpdate && !["C", "=", "<-"].includes(val)) {
+      updateHistory([
+        ...history,
+        {
+          expr: userInput,
+          res: result
+        }
+      ]);
+
+      isHistoryUpdated = true;
+      setHistoryUpdateState(false);
+      muteResult(false);
+    }
 
     switch (val) {
       case "C":
         setUserInput("");
         setResult(null);
+        setHistoryUpdateState(false);
         break;
       case "<-":
-        expr = userInput.slice(0, userInput.length - 1);
-        setUserInput(expr);
-        evaluate(expr);
+        if (!willHistoryUpdate) {
+          expr = userInput.slice(0, userInput.length - 1);
+          setUserInput(expr);
+          evaluate(expr);
+        }
         break;
       case "%":
         const regex = /\d+$/g;
         const matches = userInput.match(regex);
+
         if (matches.length) {
           const transformedValue = parseInt(matches[0], 10) / 100;
-
           expr = userInput.replace(regex, transformedValue.toString());
           setUserInput(expr);
           evaluate(expr);
         }
+
+        break;
+      case "=":
+        muteResult(true);
+        setHistoryUpdateState(true);
         break;
       case "/":
       case "*":
       case "-":
       case "+":
+        if (willHistoryUpdate) {
+          expr = result.toString().concat(val);
+          setUserInput(expr);
+          evaluate(expr);
+          break;
+        }
       default:
         if (checkIsInputAllowed(val)) {
-          expr = userInput.concat(val);
+          expr = isHistoryUpdated
+            ? val
+            : userInput.concat(val);
           setUserInput(expr);
           evaluate(expr);
         }
     }
-
-    muteResult(val === "=");
   }
 
   function checkIsInputAllowed(currentVal: string): boolean {

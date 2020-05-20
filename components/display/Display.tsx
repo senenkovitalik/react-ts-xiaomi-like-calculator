@@ -17,8 +17,8 @@ export default function display<Props>({history, isMuted, userInput, result}) {
   return (
     <div className="result">
       <div className="result__history">
-        {history.map(({ expr, res }) => (
-          <React.Fragment>
+        {history.map(({ expr, res }, i) => (
+          <React.Fragment key={i}>
             <div className={`result__input`}>{expr}</div>
             <div className={`result__current`}>= {res}</div>
             <br />
