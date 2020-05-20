@@ -1,0 +1,26 @@
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px;
+  width: 100%;
+  word-wrap: break-word;
+  height: 43%;
+  font-size: x-large;
+}
+
+.muted {
+  font-size: x-small;
+}
+
+.result__history {
+  color: lightgray;
+  height: 100%;
+  text-align: right;
+  overflow: hidden;
+  font-size: x-small;
+}
+
+.result__container {
+  text-align: right;
+}

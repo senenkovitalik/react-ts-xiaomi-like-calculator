@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../components/button/Button";
-import ButtonCircle from "./buttonCircle/ButtonCircle";
+import Button from "../button/Button";
+import ButtonCircle from "../buttonCircle/ButtonCircle";
 import "./Numpad.css";
 
 class Props {

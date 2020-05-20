@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import { render } from "react-dom";
 import "./style.css";
 import StatusBar from "./components/status-bar/StatusBar";
+import Display from "./components/display/Display";
 import Divider from "./components/divider/Divider";
 import Numpad from "./components/numpad/Numpad";
 import math from "mathjs";
@@ -23,26 +24,12 @@ function App() {
         <StatusBar />
 
         <div className="calculator">
-          <div className="result">
-            <div className="result__history">
-              {history.map(({ expr, res }) => (
-                <React.Fragment>
-                  <div className={`result__input`}>{expr}</div>
-                  <div className={`result__current`}>= {res}</div>
-                  <br />
-                </React.Fragment>
-              ))}
-            </div>
-
-            <div className="result__container">
-              <div className={`result__input ${resultMuted ? "muted" : ""}`}>
-                {userInput}
-              </div>
-              <div className={`result__current ${resultMuted ? "" : "muted"}`}>
-                {result ? "=" : null} {result}
-              </div>
-            </div>
-          </div>
+          <Display
+            history={history}
+            isMuted={resultMuted}
+            userInput={userInput}
+            result={result}
+          />
 
           <Divider />
 
