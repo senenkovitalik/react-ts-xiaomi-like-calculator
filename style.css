@@ -57,15 +57,3 @@
 .result__container {
   text-align: right;
 }
-
-.numpad {
-  height: 50%;
-  font-family: Arial, Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  padding: 0 15px;
-}
-
-.numpad__row {
-  height: 20%;
-  display: flex;
-}

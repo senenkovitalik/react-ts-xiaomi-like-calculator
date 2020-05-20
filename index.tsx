@@ -2,9 +2,8 @@ import React, { Component, useState, useEffect } from "react";
 import { render } from "react-dom";
 import "./style.css";
 import StatusBar from "./components/status-bar/StatusBar";
-import { Button } from "./components/button/Button";
-import { ButtonCircle } from "./components/buttonCircle/ButtonCircle";
 import Divider from "./components/divider/Divider";
+import Numpad from "./components/numpad/Numpad";
 import math from "mathjs";
 
 class History {
@@ -47,44 +46,7 @@ function App() {
 
           <Divider />
 
-          <div className="numpad">
-            <div className="numpad__row">
-              <Button value="C" handler={pressButton} isOperation />
-              <Button value="<-" handler={pressButton} isOperation />
-              <Button value="%" handler={pressButton} isOperation />
-              <Button value="/" handler={pressButton} isOperation />
-            </div>
-
-            <div className="numpad__row">
-              <Button value="7" handler={pressButton} />
-              <Button value="8" handler={pressButton} />
-              <Button value="9" handler={pressButton} />
-              <Button value="*" handler={pressButton} isOperation />
-            </div>
-
-            <div className="numpad__row">
-              <Button value="4" handler={pressButton} />
-              <Button value="5" handler={pressButton} />
-              <Button value="6" handler={pressButton} />
-              <Button value="-" handler={pressButton} isOperation />
-            </div>
-
-            <div className="numpad__row">
-              <Button value="1" handler={pressButton} />
-              <Button value="2" handler={pressButton} />
-              <Button value="3" handler={pressButton} />
-              <Button value="+" handler={pressButton} isOperation />
-            </div>
-
-            <div className="numpad__row">
-              <div style={{ width: "25%" }}>{""}</div>
-              <Button value="0" handler={pressButton} />
-              <Button value="," handler={pressButton} isOperation />
-              <Button value="=" handler={pressButton} hovered={false}>
-                <ButtonCircle>=</ButtonCircle>
-              </Button>
-            </div>
-          </div>
+          <Numpad buttonHandler={pressButton} />
         </div>
       </div>
     </div>
